@@ -3,7 +3,7 @@ package main
 import (
 	"bufio"
 	"bytes"
-  "flag"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -14,8 +14,8 @@ import (
 )
 
 func main() {
-  filenameFlag := flag.String("tag_file", "tags.txt", "Path to file containing tags to monitor")
-  flag.Parse()
+	filenameFlag := flag.String("tag_file", "tags.txt", "Path to file containing tags to monitor")
+	flag.Parse()
 
 	lines := readFileLines(*filenameFlag)
 	fmt.Printf("%d tags loaded\n", len(lines))
@@ -64,17 +64,17 @@ func checkTag(tag string) []byte {
 }
 
 func processHtml(html []byte) {
-  htmlStr := string(html)
-  fmt.Printf("Body:\n")
-  fmt.Println(htmlStr)
-  
-  doc, err := goquery.NewDocumentFromReader(bytes.NewReader(html))
-  if err != nil {
-    log.Fatal(err)
-  }
-  
-  fmt.Printf("Doc size = %d\n", doc.Size())
-  fmt.Printf("Doc data = %s\n", doc.Nodes[0])
-  matches := doc.Find("div")
-  fmt.Printf("Found %d matches\n", len(matches.Nodes))
+	htmlStr := string(html)
+	fmt.Printf("Body:\n")
+	fmt.Println(htmlStr)
+
+	doc, err := goquery.NewDocumentFromReader(bytes.NewReader(html))
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("Doc size = %d\n", doc.Size())
+	fmt.Printf("Doc data = %s\n", doc.Nodes[0])
+	matches := doc.Find("div")
+	fmt.Printf("Found %d matches\n", len(matches.Nodes))
 }
