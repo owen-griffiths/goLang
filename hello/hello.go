@@ -11,10 +11,10 @@ import (
 
 func main() {
 	const filename = "/Users/oweng/Documents/tags.txt"
-	
+
 	lines := readFileLines(filename)
 	fmt.Printf("%d tags loaded\n", len(lines))
-	
+
 	checkTag(lines[0])
 }
 
@@ -24,7 +24,7 @@ func readFileLines(filename string) []string {
 		log.Fatal(err)
 	}
 	defer file.Close()
-	
+
 	scanner := bufio.NewScanner(file)
 
 	var result []string
@@ -32,11 +32,11 @@ func readFileLines(filename string) []string {
 		line := scanner.Text()
 		result = append(result, line)
 	}
-	err = scanner.Err();
-	if (err != nil) {
+	err = scanner.Err()
+	if err != nil {
 		log.Fatal(err)
 	}
-	
+
 	return result
 }
 
@@ -48,7 +48,7 @@ func checkTag(tag string) {
 		log.Fatal(err)
 	}
 	defer resp.Body.Close()
-	
+
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
