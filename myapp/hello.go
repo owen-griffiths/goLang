@@ -27,6 +27,7 @@ func userHandler(w http.ResponseWriter, r *http.Request) {
 	u := user.Current(c)
 
 	if u == nil {
+		c.Infof("Need to log in.")
 		url, err := user.LoginURL(c, r.URL.String())
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -36,6 +37,7 @@ func userHandler(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusFound)
 		return
 	} else {
+		c.Infof("Already logged in.")
 		fmt.Fprintln(w, "Hello to ", u)
 	}
 }
@@ -62,6 +64,7 @@ func postHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func imageHandler(w http.ResponseWriter, r *http.Request) {
+	// Blue background, with red rectangle centered on top.
 	img := image.NewRGBA(image.Rect(0, 0, 640, 480))
 	blue := color.RGBA{0, 0, 255, 255}
 	draw.Draw(img, img.Bounds(), &image.Uniform{blue}, image.ZP, draw.Src)
